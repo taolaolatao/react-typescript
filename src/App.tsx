@@ -1,27 +1,13 @@
-import React, { useEffect, useRef } from "react"
-import "./App.css"
-import Counter from "./demo/Counter"
-import TextField from "./demo/TextField"
+import React from "react";
+import Counter from "demo/Counter";
+import { RootState } from "demo/redux/store";
+import { useSelector } from "react-redux";
+
+import "App.css";
 
 const App: React.FC = () => {
-	const inputRef = useRef<HTMLInputElement>(null)
-	console.log("App rendered...")
-
-	useEffect(() => {
-		if (inputRef.current) {
-			inputRef.current.focus()
-		}
-
-		console.log({ inputRef })
-	}, [])
-
-	const onClick = (
-		count: number,
-		setCount: React.Dispatch<React.SetStateAction<number>>
-	) => {
-		setCount(count + 1)
-		console.log({ __value: inputRef.current?.value })
-	}
+	const counter = useSelector((state: RootState) => state.counter);
+	console.log("App rendered...", counter);
 
 	return (
 		<div className="App">
@@ -29,22 +15,11 @@ const App: React.FC = () => {
 				<p>
 					Edit <code>src/App.tsx</code> and save to reload.
 				</p>
-				<Counter>
-					{({ count, setCount }) => (
-						<div>
-							<div>{count}</div>
-							<button onClick={() => onClick(count, setCount)}>
-								+
-							</button>
-						</div>
-					)}
-				</Counter>
-				<div>
-					<TextField ref={inputRef} />
-				</div>
+				<h2>{JSON.stringify(counter)}</h2>
+				<Counter />
 			</header>
 		</div>
-	)
-}
+	);
+};
 
-export default App
+export default App;

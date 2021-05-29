@@ -1,32 +1,35 @@
-import React, { useState } from "react"
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "./redux/slices/counterSlice";
+import { RootState } from "demo/redux/store";
 
 interface Props {
-	children: (data: {
-		count: number
-		setCount: React.Dispatch<React.SetStateAction<number>>
-	}) => JSX.Element
-	fn?: (count: number) => number
+	// children: (data: {
+	// 	count: number;
+	// 	setCount: React.Dispatch<React.SetStateAction<number>>;
+	// }) => JSX.Element;
+	// fn?: (count: number) => number;
 }
 
-function makeFullname<
-	T extends { firstName?: string | "Vu"; lastName: string }
->(obj: T) {
-	return {
-		...obj,
-		fullname: obj.firstName + " " + obj.lastName
-	}
-}
+const Counter: React.FC<Props> = ({}) => {
+	const counter = useSelector((state: RootState) => state.counter);
+	const dispatch = useDispatch();
+	console.log("Counter rendered...", counter);
 
-const Counter: React.FC<Props> = ({ children }) => {
-	const [count, setCount] = useState(0)
-	const makeName = makeFullname({
-		// firstName: "Vu",
-		lastName: "Minh",
-		age: 20
-	})
-	console.log("Counter rendered...", makeName)
+	const OnIncrement = () => {
+		dispatch(increment(counter.count > 1 ? counter.count : 1));
+	};
 
-	return <div>{children({ count, setCount })}</div>
-}
+	const OnDecrement = () => {
+		dispatch(decrement(counter.count > counter.prev ? counter.prev : 1));
+	};
 
-export default Counter
+	return (
+		<div>
+			<button onClick={OnIncrement}>Increment</button>
+			<button onClick={OnDecrement}>Decrement</button>
+		</div>
+	);
+};
+
+export default Counter;
