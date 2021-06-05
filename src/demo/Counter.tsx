@@ -14,7 +14,7 @@ interface Props {
 const Counter: React.FC<Props> = ({}) => {
 	const counter = useSelector((state: RootState) => state.counter);
 	const dispatch = useDispatch();
-	console.log("Counter rendered...", counter);
+	// console.log("Counter rendered...", counter);
 
 	const OnIncrement = () => {
 		dispatch(increment(counter.count > 1 ? counter.count : 1));
