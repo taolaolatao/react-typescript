@@ -23,6 +23,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: yarn -y
-    - run: yarn build
-    - run: yarn test
+    - run: npm i
+    - run: npm build --if-present
+    - run: npm test
