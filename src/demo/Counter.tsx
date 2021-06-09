@@ -11,7 +11,7 @@ interface Props {
 	// fn?: (count: number) => number;
 }
 
-const Counter: React.FC<Props> = ({}) => {
+const Counter: React.FC<Props> = () => {
 	const counter = useSelector((state: RootState) => state.counter);
 	const dispatch = useDispatch();
 	// console.log("Counter rendered...", counter);
