@@ -4,6 +4,7 @@ import userApi, { UserInfoTypes } from "demo/api/userApi";
 export const getInfo = createAsyncThunk<UserInfoTypes, { uid: string }>(
 	"user/getInfo",
 	async (params, thunkAPI) => {
+		userApi.delay = 5000;
 		const infoUser = await userApi.getInfo(params.uid);
 		return infoUser as UserInfoTypes;
 	}
